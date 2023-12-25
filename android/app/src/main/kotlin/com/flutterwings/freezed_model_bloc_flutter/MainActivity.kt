@@ -1,4 +1,4 @@
-package com.example.meelance_fllutter_assignment
+package com.flutterwings.freezed_model_bloc_flutter
 
 import io.flutter.embedding.android.FlutterActivity
 

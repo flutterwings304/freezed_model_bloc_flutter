@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 
 class APIClass {
@@ -7,11 +10,20 @@ class APIClass {
     try {
       final response = await Dio().get(baseUrl + endPoint);
       return response.data;
+    } on TimeoutException {
+      return {
+        "status": "false",
+        "message": 'The connection has timed out, Please try again!'
+      };
+    } on SocketException {
+      print("Internet Issue! No Internet connection 😑");
+
+      return {
+        "status": "false",
+        "message": "Internet Issue! No Internet connection 😑"
+      };
     } catch (e) {
-       if (e is DioException) {
-        print("Dio Exception ${e.message}");
-      }
-      print(e);
+      return {"status": "false", "message": "Someting went wrong"};
     }
   }
 
@@ -19,11 +31,23 @@ class APIClass {
     try {
       final response = await Dio().delete(baseUrl + endPoint);
       return response.data;
+    } on TimeoutException {
+      return {
+        "status": "false",
+        "message": 'The connection has timed out, Please try again!'
+      };
+    } on SocketException {
+      print("Internet Issue! No Internet connection 😑");
+
+      return {
+        "status": "false",
+        "message": "Internet Issue! No Internet connection 😑"
+      };
     } catch (e) {
-       if (e is DioException) {
-        print("Dio Exception ${e.message}");
+      if (e is DioException) {
+        print(e);
       }
-      print(e);
+      return {"status": "false", "message": "Someting went wrong"};
     }
   }
 
@@ -31,10 +55,20 @@ class APIClass {
     try {
       final response = await Dio().post(baseUrl + endPoint, data: myData);
       return response.data;
+    } on TimeoutException {
+      return {
+        "status": "false",
+        "message": 'The connection has timed out, Please try again!'
+      };
+    } on SocketException {
+      print("Internet Issue! No Internet connection 😑");
+
+      return {
+        "status": "false",
+        "message": "Internet Issue! No Internet connection 😑"
+      };
     } catch (e) {
-      if (e is DioException) {
-        print("Dio Exception ${e.message}");
-      }
+      return {"status": "false", "message": "Someting went wrong"};
       print(e);
     }
   }
@@ -43,11 +77,20 @@ class APIClass {
     try {
       final response = await Dio().put(baseUrl + endPoint, data: myData);
       return response.data;
+    } on TimeoutException {
+      return {
+        "status": "false",
+        "message": 'The connection has timed out, Please try again!'
+      };
+    } on SocketException {
+      print("Internet Issue! No Internet connection 😑");
+
+      return {
+        "status": "false",
+        "message": "Internet Issue! No Internet connection 😑"
+      };
     } catch (e) {
-      if (e is DioException) {
-        print("Dio Exception ${e.message}");
-      }
-      print(e);
+      return {"status": "false", "message": "Someting went wrong"};
     }
   }
 }

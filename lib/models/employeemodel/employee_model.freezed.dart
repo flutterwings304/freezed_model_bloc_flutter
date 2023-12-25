@@ -20,8 +20,7 @@ EmployeeModel _$EmployeeModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$EmployeeModel {
-  int get id =>
-      throw _privateConstructorUsedError; // ignore: non_constant_identifier_names
+  int get id => throw _privateConstructorUsedError;
   String get employee_name => throw _privateConstructorUsedError;
   int get employee_salary => throw _privateConstructorUsedError;
   int get employee_age => throw _privateConstructorUsedError;
@@ -144,7 +143,6 @@ class _$EmployeeModelImpl implements _EmployeeModel {
 
   @override
   final int id;
-// ignore: non_constant_identifier_names
   @override
   final String employee_name;
   @override
@@ -202,7 +200,7 @@ abstract class _EmployeeModel implements EmployeeModel {
 
   @override
   int get id;
-  @override // ignore: non_constant_identifier_names
+  @override
   String get employee_name;
   @override
   int get employee_salary;

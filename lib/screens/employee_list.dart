@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubit/employee_cubit.dart';
-import '../models/employee_model.dart';
+import '../models/employeemodel/employee_model.dart';
 import '../screens/employee_add.dart';
 
 class EmployeeListScreen extends StatefulWidget {
@@ -25,17 +25,17 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text("Get Employee List"),
       ),
       body:
           BlocBuilder<EmployeeCubit, EmployeeState>(builder: (context, state) {
-      
         if (state is InitEmployeeState || state is LoadingEmployeeState) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is ResponseEmployeeState) {
           final employees = state.employee;
-          
+
           return ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             itemCount: employees.length,
@@ -65,13 +65,13 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
 
                           //     },
                           //     icon: const Icon(Icons.edit)),
-                          IconButton(
-                              onPressed: () {
-                                context
-                                    .read<EmployeeCubit>()
-                                    .deleteEmployee(myEmployee.id);
-                              },
-                              icon: const Icon(Icons.delete))
+                          // IconButton(
+                          //     onPressed: () {
+                          //       BlocProvider.of<EmployeeCubit>(context,
+                          //               listen: false)
+                          //           .deleteEmployee(myEmployee.id.toString());
+                          //     },
+                          //     icon: const Icon(Icons.delete))
                         ],
                       ),
                     ],
@@ -87,8 +87,10 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
           child: Text(state.toString()),
         );
       }),
-      floatingActionButton: FloatingActionButton(
-          child: const Text("Add Employee"),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton.extended(
+          label: const Text("Add Employee"),
+          icon: const Icon(Icons.add),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const AddEmployeeScreen()));

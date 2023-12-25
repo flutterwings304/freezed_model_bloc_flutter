@@ -1,5 +1,7 @@
+import 'package:meelance_fllutter_assignment/cubit/employee_cubit.dart';
+
 import '../apis/api.dart';
-import '../models/employee_model.dart';
+import '../models/employeemodel/employee_model.dart';
 
 class EmployeeRepository {
   getEmployeeList() async {
@@ -15,7 +17,7 @@ class EmployeeRepository {
 
       return myEmployees;
     } else {
-      return myEmployees;
+      return ErrorEmployeeState(response["message"]);
     }
   }
 }

@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../apis/api.dart';
-import '../models/employee_model.dart';
+import '../models/employeemodel/employee_model.dart';
 import '../repository/employee_repository.dart';
 
 part 'employee_state.dart';
@@ -24,22 +24,26 @@ class EmployeeCubit extends Cubit<EmployeeState> {
     }
   }
 
-  Future<void> deleteEmployee(int id) async {
-    emit(LoadingEmployeeState());
+  Future<void> deleteEmployee(String id) async {
+    print("ID $id");
     try {
       APIClass.deleteRequest("delete/$id").then((val) {
-        Fluttertoast.showToast(msg: "Employee Deleted Successfully");
+        print(val);
+        if (val["status"] == "success") {
+          Fluttertoast.showToast(msg: "Employee Deleted Successfully");
+          fetchEmployee();
+        } else {
+          Fluttertoast.showToast(msg: val["message"]);
+        }
       });
-
-      fetchEmployee();
     } catch (e) {
       print(e);
+
       emit(ErrorEmployeeState(e.toString()));
     }
   }
 
   Future<void> createEmployee(Map<String, dynamic> myData) async {
-    emit(LoadingEmployeeState());
     try {
       APIClass.postRequest("create", myData).then((al) {
         Fluttertoast.showToast(msg: "Employee Added Successfully");
