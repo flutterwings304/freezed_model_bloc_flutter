@@ -68,8 +68,8 @@ class APIClass {
         "message": "Internet Issue! No Internet connection 😑"
       };
     } catch (e) {
-      return {"status": "false", "message": "Someting went wrong"};
       print(e);
+      return {"status": "false", "message": "Someting went wrong"};
     }
   }
 
